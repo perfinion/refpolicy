@@ -192,6 +192,10 @@ ifeq "$(DISTRO)" "ubuntu"
 	M4PARAM += -D distro_debian
 endif
 
+ifneq ($(LIBC),)
+	M4PARAM += -D libc_$(LIBC)
+endif
+
 ifeq "$(SYSTEMD)" "y"
 	M4PARAM += -D init_systemd
 endif
@@ -543,6 +547,9 @@ install-headers: $(layerxml) $(tunxml) $(boolxml)
 	$(verbose) echo "NAME ?= $(NAME)" >> $(headerdir)/build.conf
 ifneq "$(DISTRO)" ""
 	$(verbose) echo "DISTRO ?= $(DISTRO)" >> $(headerdir)/build.conf
+endif
+ifneq "$(LIBC)" ""
+	$(verbose) echo "LIBC ?= $(LIBC)" >> $(headerdir)/build.conf
 endif
 	$(verbose) echo "MONOLITHIC ?= n" >> $(headerdir)/build.conf
 	$(verbose) echo "DIRECT_INITRC ?= $(DIRECT_INITRC)" >> $(headerdir)/build.conf
