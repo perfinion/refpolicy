@@ -770,6 +770,11 @@ interface(`sysnet_dns_name_resolve',`
 			systemd_read_machines($1)
 		')
 	')
+
+	ifdef(`libc_musl',`
+		corenet_tcp_bind_generic_node($1)
+		corenet_udp_bind_generic_node($1)
+	')
 ')
 
 ########################################
